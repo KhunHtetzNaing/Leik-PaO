@@ -1,3 +1,5 @@
+### Privacy Policy
+
 **Last updated:** 27/12/2023
 
 Thank you for using Leik Pa'O, a free app developed by Khun Htetz Naing. This Privacy Policy outlines how your data is handled when you use the app.
