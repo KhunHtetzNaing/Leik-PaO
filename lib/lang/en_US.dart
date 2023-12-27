@@ -19,7 +19,7 @@ const Map<String, String> english = {
   'developer': "Developer",
   'khun_htetz_naing': "Khun Htetz Naing",
   'current_version': "1.0",
-  'current_version_note': "Released on Dec 25, 2023",
+  'current_version_note': "Released on Dec 27, 2023",
   'has_been_saved': "has been saved ✅",
   'has_been_deleted': "has been deleted 🗑️",
   'something_wrong': "Something Went Wrong 🙁",

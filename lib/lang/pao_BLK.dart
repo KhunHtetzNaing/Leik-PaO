@@ -18,7 +18,7 @@ const Map<String, String> pao = {
   'developer': "ကေားထွင်ႏသား",
   'khun_htetz_naing': "ခွန်ထက်နိုင်",
   'current_version': "၁.၀",
-  'current_version_note': "နေင်း ၁၃၈၅ ဗာႏ၊ ဒဲဉ်စေင်လာဆန်ꩻ ၄ နီꩻ",
+  'current_version_note': "နေင်ႏ ၁၃၈၅ ဗာႏ၊ ဒဲဉ်စေင်ဗွေ",
   'has_been_saved': "ထူႏသိမ်ꩻထွူလဲဉ်း ✅",
   'has_been_deleted': "ယားကုဲင်ချာထွူလဲဉ်း 🗑️",
   'something_wrong': "အမာႏတရွို့ꩻအဝ်ႏတစွိုးစွိုး 🙁",
