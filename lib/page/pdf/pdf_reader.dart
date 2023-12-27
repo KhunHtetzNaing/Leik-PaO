@@ -6,15 +6,15 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../controller/download_controller.dart';
 import '../../controller/pdf_reader_controller.dart';
 
-class PdfReader extends BasePdfReader{
+class PdfReader extends BasePdfReader {
   PdfReader({super.key, required super.item});
   @override
   Widget build(BuildContext context) {
     final PdfReaderController readerController = Get.put(PdfReaderController());
-    final DownloadController downloadController = Get.find<DownloadController>();
+    final DownloadController downloadController =
+        Get.find<DownloadController>();
     readerController.isDownloaded(item);
 
-    debugPrint(item.file.path);
     var isLoaded = false.obs;
 
     return Scaffold(
@@ -23,54 +23,53 @@ class PdfReader extends BasePdfReader{
           actions: [
             Obx(() => IconButton(
                 onPressed: isLoaded.isFalse ? null : () => jumpToPage(),
-                icon: const Icon(Icons.import_contacts_rounded)
-            )),
+                icon: const Icon(Icons.import_contacts_rounded))),
             Obx(() => readerController.isLocal.value
                 ? IconButton(
-                onPressed: () async {
-                  readerController.delete(item).then((value) {
-                    if(value){
-                      downloadController.items.remove(item);
-                      showSnack(item.name, "has_been_deleted".tr);
-                    }else{
-                      showErrorDialog("something_wrong".tr, "unable_delete".trParams({"name": item.name}));
-                    }
-                  }
-                  ).catchError((onError){
-                    showErrorDialog("something_wrong".tr, onError.toString());
-                  });
-                },
-                icon: const Icon(Icons.delete_rounded))
+                    onPressed: () async {
+                      readerController.delete(item).then((value) {
+                        if (value) {
+                          downloadController.items.remove(item);
+                          showSnack(item.name, "has_been_deleted".tr);
+                        } else {
+                          showErrorDialog("something_wrong".tr,
+                              "unable_delete".trParams({"name": item.name}));
+                        }
+                      }).catchError((onError) {
+                        showErrorDialog(
+                            "something_wrong".tr, onError.toString());
+                      });
+                    },
+                    icon: const Icon(Icons.delete_rounded))
                 : IconButton(
-                onPressed: isLoaded.isFalse
-                    ? null
-                    : () async {
-                  final List<int> savedBytes = await pdfViewerController.saveDocument();
-                  readerController.save(savedBytes, item).then((value) {
-                    if(value){
-                      downloadController.items.add(item);
-                      showSnack(item.name, "has_been_saved".tr);
-                    }else{
-                      showErrorDialog("something_wrong".tr, "unable_save".trParams({"name": item.name}));
-                    }
-                  }).catchError((onError){
-                    showErrorDialog("something_wrong".tr, onError.toString());
-                  });
-                },
-                icon: const Icon(Icons.file_download_rounded))),
-            IconButton(onPressed: () async {
-              await Share.shareXFiles(
-                [XFile(item.file.path)]
-              );
-            }, icon: const Icon(Icons.share_rounded))
+                    onPressed: isLoaded.isFalse
+                        ? null
+                        : () async {
+                            readerController
+                                .savePdf(pdfViewerController, item)
+                                .then((value) {
+                              if (value) {
+                                downloadController.items.add(item);
+                                showSnack(item.name, "has_been_saved".tr);
+                              } else {
+                                showErrorDialog(
+                                    "something_wrong".tr,
+                                    "unable_save"
+                                        .trParams({"name": item.name}));
+                              }
+                            }).catchError((onError) {
+                              showErrorDialog(
+                                  "something_wrong".tr, onError.toString());
+                            });
+                          },
+                    icon: const Icon(Icons.file_download_rounded))),
           ],
         ),
-        body: _loadPdf(isLoaded)
-    );
+        body: _loadPdf(isLoaded));
   }
 
-  SfPdfViewer _loadPdf(RxBool isLoaded){
-    if(item.file.existsSync()){
+  SfPdfViewer _loadPdf(RxBool isLoaded) {
+    if (item.file.existsSync()) {
       debugPrint("load local");
       return SfPdfViewer.file(
         item.file,
@@ -85,7 +84,7 @@ class PdfReader extends BasePdfReader{
         },
         enableTextSelection: false,
       );
-    }else{
+    } else {
       debugPrint("load network");
       return SfPdfViewer.network(
         item.getSource,

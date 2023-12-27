@@ -16,9 +16,17 @@ class BookProvider extends GetConnect{
       if (response.statusCode == HttpStatus.ok) {
         return _parseData(response.body);
       }else{
+        final connectivityResult = await (Connectivity().checkConnectivity());
+        if(connectivityResult == ConnectivityResult.none){
+          return Future.error("no_internet".tr);
+        }
         return Future.error('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      if(connectivityResult == ConnectivityResult.none){
+        return Future.error("no_internet".tr);
+      }
       return Future.error('Error fetching books: $e');
     }
   }
@@ -27,13 +35,13 @@ class BookProvider extends GetConnect{
     final pdfDirectory = kIsWeb ? null : await Constants.pdfDirectory;
 
     final books = (jsonDecode(body) as List<dynamic>).map((e) {
+      final item = BookItem.fromJson(e);
       // Get file name for directory
       if(!kIsWeb) {
-        final name = e["name"] as String;
-        e["directory"] = Directory(p.join(pdfDirectory!.path, name)).path;
+        item.directory = Directory(p.join(pdfDirectory!.path, item.name)).path;
       }
 
-      return BookItem.fromJson(e);
+      return item;
     }).toList();
 
     // Extract category and length
@@ -46,8 +54,8 @@ class BookProvider extends GetConnect{
 
     final categories = categoriesMap.entries.map((e) => CategoryItem(name: e.key, length: e.value.toString())).toList();
 
-    categories.insert(Constants.homeIndex,CategoryItem(name: "home".tr, length: books.where((element) => element.index != null).length.toString()));
-    categories.insert(Constants.allIndex,CategoryItem(name: "all".tr, length: books.length.toString()));
+    categories.insert(Constants.homeIndex,CategoryItem(name: Constants.homeName, length: books.where((element) => element.index != null).length.toString()));
+    categories.insert(Constants.allIndex,CategoryItem(name: Constants.allName, length: books.length.toString()));
     return BookModel(
         categories: categories,
         books: books

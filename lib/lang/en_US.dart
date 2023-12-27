@@ -6,7 +6,6 @@ const Map<String, String> english = {
   'search': 'Search',
   'ok': 'OK',
   'cancel': 'Cancel',
-  'all': 'All',
   'change_appearance': 'Change Appearance',
   'settings': 'Settings',
   'retry': 'Retry',
@@ -33,4 +32,8 @@ const Map<String, String> english = {
   'no_internet': "No internet connection!",
   'translator': "Translator",
   'khun_moung': "Khun Moung",
+
+  'delete': 'Delete',
+  'share': 'Share',
+  'open_with': 'Open with',
 };

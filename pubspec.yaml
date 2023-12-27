@@ -45,6 +45,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1 # dart run flutter_launcher_icons
   flutter_native_splash: ^2.3.8
   share_plus: ^7.2.1
+  open_filex: ^4.3.4
 
 flutter_native_splash:
   color: "#E0EDDE"

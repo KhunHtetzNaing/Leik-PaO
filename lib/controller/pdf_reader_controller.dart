@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../model/book_model.dart';
 import 'download_controller.dart';
@@ -19,9 +21,16 @@ class PdfReaderController extends GetxController{
     if(!isDirectoryExist) await directory.create(recursive: true);
 
     await file.writeAsBytes(dataBytes);
+
     _storage.write(item.id, item);
     isDownloaded(item);
-    return file.existsSync();
+
+    return file.exists();
+  }
+
+  Future<bool> savePdf(PdfViewerController controller, BookItem item) async {
+    final dataBytes = await controller.saveDocument();
+    return save(dataBytes, item);
   }
 
   Future<bool> delete(BookItem item) async {

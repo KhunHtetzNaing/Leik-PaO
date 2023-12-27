@@ -16,7 +16,6 @@ class BookItem {
     required this.src,
     required this.index,
     required this.categories,
-    required this.directory,
   });
 
   String get fileName => "$name.pdf";
@@ -42,7 +41,6 @@ class BookItem {
       "thumb": thumb,
       "src": src,
       "cat": categories,
-      "directory": directory,
     };
   }
 
@@ -52,7 +50,6 @@ class BookItem {
         thumb: json["thumb"],
         src: json["src"],
         index: json["index"],
-        directory: json["directory"],
         categories: json["cat"].cast<String>()
     );
   }

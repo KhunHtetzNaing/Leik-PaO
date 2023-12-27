@@ -36,6 +36,9 @@ class SettingsPage extends StatelessWidget {
             title: Text("current_version".tr),
             leading: const Icon(Icons.history_rounded),
             subtitle: Text("current_version_note".tr),
+            onTap: (){
+              launchUrl(Uri.parse("https://github.com/KhunHtetzNaing/Leik-PaO"));
+            },
           ),
           ListTile(
             title: Text("developer".tr),
