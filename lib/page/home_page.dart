@@ -24,7 +24,8 @@ class HomePage extends StatelessWidget {
                 children: [_categories(controller), _bookList(data!)],
               ),
           onEmpty: _showError(controller, "items_empty".tr),
-          onError: (error) => _showError(controller, error!)),
+          onError: (error) => _showError(controller, error!)
+      ),
     );
   }
 }
@@ -125,7 +126,6 @@ Widget _categories(HomeController controller) {
 
 AppBar _myAppBar(HomeController homeController) {
   return AppBar(
-    // backgroundColor: Colors.lime,
     scrolledUnderElevation: 0,
     toolbarHeight: kToolbarHeight + Dimen.paddingMedium,
     flexibleSpace: _searchBar(homeController),

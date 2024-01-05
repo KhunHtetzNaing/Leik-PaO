@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pao_library/controller/settings_controller.dart';
 import 'package:pao_library/lang/translation_service.dart';
+import 'package:pao_library/page/converter_page.dart';
 import 'package:pao_library/page/downloads_page.dart';
 import 'package:pao_library/page/home_page.dart';
 import 'package:pao_library/page/settings_page.dart';
@@ -23,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsController settingsController = Get.put(SettingsController());
-
     return GetMaterialApp(
       translations: TranslationService(), // your translations
       locale: settingsController.currentLanguage.locale, // translations will be displayed in that locale
@@ -64,6 +64,7 @@ List<Widget> _getPages(){
   if(!kIsWeb){
     items.add(DownloadsPage());
   }
+  items.add(ConverterPage());
   items.add(const SettingsPage());
   return items;
 }
@@ -73,6 +74,7 @@ List<Widget> _getBottomNavItem(){
   if(!kIsWeb){
     items.add(NavigationDestination(icon: const Icon(Icons.download_rounded), label: "downloads".tr));
   }
+  items.add(NavigationDestination(icon: const Icon(Icons.change_circle_rounded), label: "converter".tr));
   items.add(NavigationDestination(icon: const Icon(Icons.settings_rounded), label: "settings".tr));
   return items;
 }

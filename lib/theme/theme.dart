@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'color_schemes.g.dart';
 
 myTheme(bool isDarkMode, String? fontFamily){

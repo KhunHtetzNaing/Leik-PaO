@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Constants{
@@ -15,6 +18,12 @@ class Constants{
         .split("")
         .map((item) => _en2My[item] ?? item)
         .join();
+  }
+
+  static Future<void> copy(String text) async{
+    await Clipboard.setData(ClipboardData(text: text));
+    final message = text.length > 30 ? "${text.substring(0,30)}..." : text;
+    Get.snackbar("copied".tr,message,mainButton: TextButton(onPressed: (){Get.back();}, child: Text("ok".tr)));
   }
 
   static String my2En(String input) {

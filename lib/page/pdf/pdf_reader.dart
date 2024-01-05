@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pao_library/page/pdf/base_pdf_reader.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../controller/download_controller.dart';
 import '../../controller/pdf_reader_controller.dart';
 
@@ -16,6 +14,7 @@ class PdfReader extends BasePdfReader {
     readerController.isDownloaded(item);
 
     var isLoaded = false.obs;
+    OverlayEntry? overlayEntry;
 
     return Scaffold(
         appBar: AppBar(
@@ -65,40 +64,6 @@ class PdfReader extends BasePdfReader {
                     icon: const Icon(Icons.file_download_rounded))),
           ],
         ),
-        body: _loadPdf(isLoaded));
-  }
-
-  SfPdfViewer _loadPdf(RxBool isLoaded) {
-    if (item.file.existsSync()) {
-      debugPrint("load local");
-      return SfPdfViewer.file(
-        item.file,
-        controller: pdfViewerController,
-        canShowPaginationDialog: false,
-        onDocumentLoaded: (PdfDocumentLoadedDetails details) {
-          isLoaded.toggle();
-          debugPrint("onDocumentLoaded: ${details.document.pages.count}");
-        },
-        onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
-          showPdfLoadError(details.error, details.description);
-        },
-        enableTextSelection: false,
-      );
-    } else {
-      debugPrint("load network");
-      return SfPdfViewer.network(
-        item.getSource,
-        controller: pdfViewerController,
-        canShowPaginationDialog: false,
-        onDocumentLoaded: (PdfDocumentLoadedDetails details) {
-          isLoaded.toggle();
-          debugPrint("onDocumentLoaded: ${details.document.pages.count}");
-        },
-        onDocumentLoadFailed: (PdfDocumentLoadFailedDetails details) {
-          showPdfLoadError(details.error, details.description);
-        },
-        enableTextSelection: false,
-      );
-    }
+        body: item.file.existsSync() ? loadFromFile(context, isLoaded, overlayEntry) : loadFromNetwork(context, isLoaded, overlayEntry));
   }
 }

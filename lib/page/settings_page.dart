@@ -26,12 +26,32 @@ class SettingsPage extends StatelessWidget {
               title: Text("embed_font".tr),
               secondary: const Icon(Icons.font_download_rounded),
               subtitle: Text("use_pyidaungsu".tr),
-              value: settingsController.isEmbed.value,
+              value: !settingsController.notEmbedFont.value,
               onChanged: (checked) {
-                settingsController.toggleEmbedFont(checked);
+                settingsController.toggleEmbedFont();
               }
-          ))
-          ,
+          )),
+
+          Obx(() => SwitchListTile(
+              title: Text("reading_style".tr),
+              secondary: const Icon(Icons.auto_stories_rounded),
+              subtitle: Text("reading_style_horizontal".tr),
+              value: settingsController.verticalPageLayoutMode.value,
+              onChanged: (checked){
+                settingsController.togglePageLayoutMode();
+              }
+          )),
+
+          Obx(() => SwitchListTile(
+              title: Text("copy_as_uni".tr),
+              secondary: const Icon(Icons.copy_rounded),
+              subtitle: Text("auto_convert_uni".tr),
+              value: settingsController.copyAsUnicode.value,
+              onChanged: (checked){
+                settingsController.toggleCopyAs();
+              }
+          )),
+
           ListTile(
             title: Text("current_version".tr),
             leading: const Icon(Icons.history_rounded),

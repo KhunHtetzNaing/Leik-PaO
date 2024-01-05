@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,18 +26,17 @@ class SettingsController extends GetxController{
   }
 
   // Embed
-  String? get fontFamily => isEmbed.isTrue ? "Pyidaungsu" : null;
-  final _embedFontKey = "embed";
-  bool get _isEmbed {
-    return _box.read(_embedFontKey) ?? false;
+  String? get fontFamily => notEmbedFont.isTrue ? null : "Pyidaungsu";
+  final _notEmbedFontKey = "not_embed";
+  bool get _isNotEmbed {
+    return _box.read(_notEmbedFontKey) ?? false;
   }
 
-  late var isEmbed = _isEmbed.obs;
+  late var notEmbedFont = _isNotEmbed.obs;
 
-  void toggleEmbedFont(bool val){
-    _box.write(_embedFontKey, val);
-    isEmbed.value = val;
-
+  void toggleEmbedFont(){
+    notEmbedFont.toggle();
+    _box.write(_notEmbedFontKey, notEmbedFont.value);
     _updateTheme();
     Get.updateLocale(currentLanguage.locale);
   }
@@ -66,6 +64,23 @@ class SettingsController extends GetxController{
 
     _updateTheme();
     Get.updateLocale(currentLanguage.locale);
-    //Get.changeThemeMode(themeMode);
+  }
+
+  // Page style
+  final _pageLayoutModeKey = "page_layout_mode";
+  bool get _verticalPageLayoutMode => _box.hasData(_pageLayoutModeKey) ? _box.read(_pageLayoutModeKey) : false;
+  late var verticalPageLayoutMode = _verticalPageLayoutMode.obs;
+  void togglePageLayoutMode(){
+    verticalPageLayoutMode.toggle();
+    _box.write(_pageLayoutModeKey, verticalPageLayoutMode.value);
+  }
+
+  // Copy
+  final _copyKey = "copy_normal";
+  bool get _copyAsUnicode => _box.hasData(_copyKey) ? _box.read(_copyKey) : true;
+  late var copyAsUnicode = _copyAsUnicode.obs;
+  void toggleCopyAs(){
+    copyAsUnicode.toggle();
+    _box.write(_copyKey, copyAsUnicode.value);
   }
 }
