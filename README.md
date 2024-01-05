@@ -22,6 +22,8 @@ flutter build apk --split-per-abi --release
 cp build/app/outputs/flutter-apk/*.apk release
 # Bundle for Play Store
 flutter build appbundle --release
+# Copy .aab to release directory:
+copy build/app/outputs/bundle/release/app-release.aab release
 ```
 ## Build .ipa for iOS
 ```bash
