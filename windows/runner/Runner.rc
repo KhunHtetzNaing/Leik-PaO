@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "pao_library" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "pao_library" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.htetznaing. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.htetznaing. All rights reserved." "\0"
             VALUE "OriginalFilename", "pao_library.exe" "\0"
             VALUE "ProductName", "pao_library" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
